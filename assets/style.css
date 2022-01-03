@@ -1,5 +1,6 @@
 * {
     background-color: aquamarine;
+    font-family: sans-serif;
 }
 
 header {
@@ -8,7 +9,32 @@ header {
 }
 
 main {
+    margin: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    width: 50%;
+}
+
+button {
+    width: 20%;
+    margin: auto;
+}
+
+/* Hide answer choices and grade until called by the script */
+#questionBody {
+    display: none;
+}
+
+#answerGrade {
+    display: none;
+}
+
+li {
+    padding: 5px;
+}
+
+li:hover {
+    color: blue;
+    box-shadow: 0px 5px 15px purple;
+    cursor: pointer;
 }
