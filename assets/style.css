@@ -1,0 +1,14 @@
+* {
+    background-color: aquamarine;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
