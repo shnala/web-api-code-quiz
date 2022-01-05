@@ -25,6 +25,11 @@ button {
     display: none;
 }
 
+#userInitials {
+    margin: 20px;
+    display: none;
+}
+
 #answerGrade {
     display: none;
 }

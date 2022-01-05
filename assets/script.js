@@ -8,7 +8,7 @@
 //At the end, a form appears where the user can submit their username to the highscores.
 
 //Timer variables
-var secondsLeft = 500;
+var secondsLeft = 1000;
 var dynamicTimer = document.getElementById("timer");
 
 //Test initiation variables
@@ -21,6 +21,8 @@ var questionBody = document.getElementById("questionBody");
 var answerGrade = document.getElementById("answerGrade");
 var wrongTally = 0;
 
+//Finishing variables
+var inputField = document.querySelector("#userInitials");
 
 //Establishing timer
 const setTime = () => {
@@ -51,7 +53,7 @@ const right = () => {
 const wrong = () => {
     answerGrade.style.display = "block";
     answerGrade.children[1].textContent = "Incorrect!"
-    secondsLeft-=50;
+    secondsLeft-=20;
     wrongTally++;
 }
 
@@ -59,6 +61,11 @@ const wrong = () => {
 //Writing questions
 //TODO: Needs debugging; after first question is answered, regardless of correctness, the wrong function is called on every question thereafter.
 //This is also bugging the score, causing deductions to be made even if the question is answered correctly.
+
+//TODO: Instead of each question being a function, create an array that contains multiple objects, 
+// take questions/answers/correct answer and store into individual objects in array; compare submitted information to correct; 
+// iterate thru array and attach eventlistener to buttons for each choice; increase the counter, 
+// update the display (display a different part of the array)
 
 const questionOne = () => {    
     questionHead.textContent = "Which of the following best describes a Web API?"
@@ -132,11 +139,29 @@ const questionFour = () => {
         
         if (element === questionBody.children[3]) {
             right();
-            // questionFive();
+            questionFive();
+        } else {
+            wrong();
+            questionFive();
+        }
+    });
+}
+
+const questionFive = () => {
+    questionHead.textContent = "Why do we need to convert an object into JSON in order for it to properly persist to local storage?"
+    questionBody.children[0].textContent = "Local storage only accepts JSON objects."
+    questionBody.children[1].textContent = "(Correct)   Local storage can only store strings, so we convert the object to JSON to store it properly."
+    questionBody.children[2].textContent = "Local storage cannot read JavaScript, so we convert JavaScript into JSON."
+    questionBody.children[3].textContent = "It is convention to store objects using JSON, and we must follow that pattern so that our code is easy to read."
+
+    questionBody.addEventListener("click", function(event) {
+        var element = event.target;
+        
+        if (element === questionBody.children[1]) {
+            right();
             gameEnd();
         } else {
             wrong();
-            // questionFive();
             gameEnd();
         }
     });
@@ -148,20 +173,41 @@ const questionFour = () => {
 function gameEnd() {
     var finalScore = secondsLeft;
     questionHead.textContent = "Your score was " + finalScore + ". " + "You answered " + wrongTally + " questions wrong.";
-    questionBody.textContent = "This is a test."
+    questionBody.textContent = "Submit your score below!"
+    inputField.style.display = "inline";
     answerGrade.style.display = "none";
 
-    localStorage.setItem("finalScore", JSON.stringify(finalScore));
+
     var submitScore = document.createElement("button")
+    submitScore.setAttribute('id','submitButton')
     submitScore.textContent = "Submit Score"
-    document.querySelector("#submitButton").appendChild(submitScore);
-    submitScore.addEventListener("click", console.log("This works"))
+    document.querySelector("#submitHere").appendChild(submitScore);
+
+//TODO: object saves score successfully but does not grab name from inputField.   
+    var nameScore = {
+        yourName: inputField.value.trim(),
+        score: secondsLeft
+    }
+
+
+    submitScore.addEventListener("click", function() {
+        localStorage.setItem("nameScore", JSON.stringify(nameScore));
+        // localStorage.setItem("nameScore", nameScore);
+        // localStorage.setItem("score", secondsLeft);
+        // localStorage.setItem("name", inputField.value);
+        showScores();
+    })
 }
 
-//Function for rendering final score and creating a list of all scores.
-
+//TODO: WIP.
 function showScores() {
-    
+    alert("This works");
+    localStorage.getItem("nameScore", JSON.parse(nameScore));
+    for (let i = 0; i < highscores.length; i++) {
+        const element = highscores[i];
+        
+    }
+
 }
 
 
