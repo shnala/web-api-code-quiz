@@ -22,7 +22,8 @@ var answerGrade = document.getElementById("answerGrade");
 var wrongTally = 0;
 
 //Finishing variables
-var inputField = document.querySelector("#userInitials");
+var inputField = document.querySelector('#inputWrapper');
+var userInput = document.querySelector('#userInitials').value;
 
 //Establishing timer
 const setTime = () => {
@@ -185,7 +186,7 @@ function gameEnd() {
 
 //TODO: object saves score successfully but does not grab name from inputField.   
     var nameScore = {
-        yourName: inputField.value.trim(),
+        yourName: inputField.value,
         score: secondsLeft
     }
 
