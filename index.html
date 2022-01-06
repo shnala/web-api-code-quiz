@@ -9,13 +9,13 @@
 </head>
 <body>
     <header>
-        <a href="" id="highscoresLink">View Highscores</a>
+        <a href="#" id="highscoresLink" onclick="showScores()">View Highscores</a>
         <div id="timer"></div>
     </header>
 
     <main>
         <h1 id="questionHead">Test Your Coding Knowledge!</h1>
-        <h2 id="quizIntro">Take this timed, interactive quiz and compete for the highest score! Topics include HTML, CSS, Javascript, and Web API's.</h2>
+        <h2 id="quizIntro">Take this timed, interactive quiz and compete for the highest score! Topics include Javascript, CSS, and Web API's.</h2>
         <div>
             <ul id="questionBody">
                 <!-- make button; add event listener for each button -->
@@ -32,6 +32,7 @@
             <hr>
             <h2></h2>
             <ul id="highscores"></ul>
+            <span id="closeHere"></span>
         </div>
         <button id = "start" onclick="setTime()">Start Quiz</button>
     </main>

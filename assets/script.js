@@ -27,11 +27,6 @@ var inputField = document.querySelector('#userInitials');
 var highscores = document.querySelector('#highscores');
 var highscoresLink = document.querySelector('#highscoresLink');
 
-function init() {
-    newNameScore = JSON.parse(localStorage.getItem("nameScore")) || []
-}
-
-
 //Establishing timer
 const setTime = () => {
     var timerInterval = setInterval(() => {
@@ -191,20 +186,25 @@ function gameEnd() {
     document.querySelector("#submitHere").appendChild(submitScore);
 
 
-    submitScore.addEventListener("click", function() {
-        var nameScore = {
+    submitScore.addEventListener("click", function() {   
+        saveScore();
+        showScores();
+    }) 
+}
+
+function saveScore() {
+    var nameScore = {
             yourName: inputField.value,
             score: secondsLeft
         }
+        newNameScore = JSON.parse(localStorage.getItem("nameScore")) || []
         newNameScore.push(nameScore);
         localStorage.setItem("nameScore", JSON.stringify(newNameScore));
-        showScores();
-    })
 }
 
-//TODO: WIP.
 function showScores() {
     highscores.style.display = "block";
+    answerGrade.style.display = "block";
     newNameScore = JSON.parse(localStorage.getItem("nameScore")) || []
     for (let i = 0; i < newNameScore.length; i++) {
         var player = newNameScore[i];
@@ -213,21 +213,8 @@ function showScores() {
         highscoreItem.textContent = player.yourName + " scored " + player.score;
         highscoreItem.classList.add("highscoreItem");
         highscores.appendChild(highscoreItem);
-
-        // document.getElementsByClassName("highscoreItem").textContent = "Placeholder";
-        // var renderedHighscores = JSON.stringify(newNameScore[i]);
-        // listItem.textContent = renderedHighscores.yourName;
-        // highscores.appendChild(listItem);
     }
-
-    // for (let i = 0; i < newNameScore.length; i++) {
-    //     const element = newNameScore[i];
-    //     highscoreItem.append()
-        
-    // }
-    // highscoreItem.textContent = "Placeholder"
 }
-
 
 startButton.addEventListener("click", function() {
     startButton.setAttribute("style", "display:none");
