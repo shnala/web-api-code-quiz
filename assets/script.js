@@ -10,6 +10,7 @@
 //Timer variables
 var secondsLeft = 1000;
 var dynamicTimer = document.getElementById("timer");
+var newNameScore = [];
 
 //Test initiation variables
 var startButton = document.getElementById("start");
@@ -22,8 +23,14 @@ var answerGrade = document.getElementById("answerGrade");
 var wrongTally = 0;
 
 //Finishing variables
-var inputField = document.querySelector('#inputWrapper');
-var userInput = document.querySelector('#userInitials').value;
+var inputField = document.querySelector('#userInitials');
+var highscores = document.querySelector('#highscores');
+var highscoresLink = document.querySelector('#highscoresLink');
+
+function init() {
+    newNameScore = JSON.parse(localStorage.getItem("nameScore")) || []
+}
+
 
 //Establishing timer
 const setTime = () => {
@@ -169,14 +176,13 @@ const questionFive = () => {
 }
 
 //Function for ending game; tallys score and saves it to localstorage
-//TODO: Needs debugging; submitScore button runs even when it is not clicked.
 
 function gameEnd() {
     var finalScore = secondsLeft;
     questionHead.textContent = "Your score was " + finalScore + ". " + "You answered " + wrongTally + " questions wrong.";
     questionBody.textContent = "Submit your score below!"
     inputField.style.display = "inline";
-    answerGrade.style.display = "none";
+    answerGrade.children[1].style.display = "none";
 
 
     var submitScore = document.createElement("button")
@@ -184,31 +190,42 @@ function gameEnd() {
     submitScore.textContent = "Submit Score"
     document.querySelector("#submitHere").appendChild(submitScore);
 
-//TODO: object saves score successfully but does not grab name from inputField.   
-    var nameScore = {
-        yourName: inputField.value,
-        score: secondsLeft
-    }
-
 
     submitScore.addEventListener("click", function() {
-        localStorage.setItem("nameScore", JSON.stringify(nameScore));
-        // localStorage.setItem("nameScore", nameScore);
-        // localStorage.setItem("score", secondsLeft);
-        // localStorage.setItem("name", inputField.value);
+        var nameScore = {
+            yourName: inputField.value,
+            score: secondsLeft
+        }
+        newNameScore.push(nameScore);
+        localStorage.setItem("nameScore", JSON.stringify(newNameScore));
         showScores();
     })
 }
 
 //TODO: WIP.
 function showScores() {
-    alert("This works");
-    localStorage.getItem("nameScore", JSON.parse(nameScore));
-    for (let i = 0; i < highscores.length; i++) {
-        const element = highscores[i];
-        
+    highscores.style.display = "block";
+    newNameScore = JSON.parse(localStorage.getItem("nameScore")) || []
+    for (let i = 0; i < newNameScore.length; i++) {
+        var player = newNameScore[i];
+
+        var highscoreItem = document.createElement("li");
+        highscoreItem.textContent = player.yourName + " scored " + player.score;
+        highscoreItem.classList.add("highscoreItem");
+        highscores.appendChild(highscoreItem);
+
+        // document.getElementsByClassName("highscoreItem").textContent = "Placeholder";
+        // var renderedHighscores = JSON.stringify(newNameScore[i]);
+        // listItem.textContent = renderedHighscores.yourName;
+        // highscores.appendChild(listItem);
     }
 
+    // for (let i = 0; i < newNameScore.length; i++) {
+    //     const element = newNameScore[i];
+    //     highscoreItem.append()
+        
+    // }
+    // highscoreItem.textContent = "Placeholder"
 }
 
 

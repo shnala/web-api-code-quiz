@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <a href="" id="highscores">View Highscores</a>
+        <a href="" id="highscoresLink">View Highscores</a>
         <div id="timer"></div>
     </header>
 
@@ -24,15 +24,14 @@
                 <li></li>
                 <li></li>
             </ul>
-            <span id="inputWrapper">
                 <input type="text" name="userInitials" id="userInitials" placeholder="Your Name"></input>
-            </span>
             <span id="submitHere"></span>
         </div>
 
         <div id="answerGrade">
             <hr>
             <h2></h2>
+            <ul id="highscores"></ul>
         </div>
         <button id = "start" onclick="setTime()">Start Quiz</button>
     </main>
