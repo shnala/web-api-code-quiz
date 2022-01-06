@@ -15,11 +15,11 @@ The app is web-based and requires no installation.
 ## Usage
 The app is click-based and easy to use. Click your preferred answer and you will be given immediate feedback.
 
-    ![alt text](/assets/images/ss1.PNG)
+![load page](/assets/images/ss1.PNG)
  
-    ![alt text](/assets/images/ss2.PNG)
+![question prompts](/assets/images/ss2.PNG)
 
-    ![alt text](/assets/images/ss3.PNG)
+![highscores](/assets/images/ss3.PNG)
 
 ## Credits
 README created with reference to template at: (https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide)
